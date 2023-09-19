@@ -19,6 +19,8 @@ export default async function SpeciesList() {
 
   const { data: species } = await supabase.from("species").select("*");
 
+  process.env['CURRENT_USER_ID'] = session.user.id;
+
   return (
     <>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
