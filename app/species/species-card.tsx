@@ -21,7 +21,7 @@ export default function SpeciesCard(species: Species , userId: string) {
       <div>
         <LearnMoreDialog key={new Date().getTime()} species={species}/>
       </div>
-      <EditSpeciesDialog key={new Date().getTime()} userId={userId} species={species}/>
+      <EditSpeciesDialog key={new Date().getTime()} species={species}/>
     </div>
   );
 }

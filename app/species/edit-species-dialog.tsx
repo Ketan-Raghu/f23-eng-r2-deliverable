@@ -60,7 +60,7 @@ const speciesSchema = z.object({
 
 type FormData = z.infer<typeof speciesSchema>;
 
-export default function EditSpeciesDialog({ userId, species }: { userId: string, species: Species }) {
+export default function EditSpeciesDialog({ species }: { species: Species }) {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -100,8 +100,6 @@ export default function EditSpeciesDialog({ userId, species }: { userId: string,
     // Refreshing that server component will display the new species from Supabase
     router.refresh();
   };
-
-  const [comName , setComName] = useState(species.common_name)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
