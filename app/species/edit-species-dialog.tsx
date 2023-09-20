@@ -60,17 +60,12 @@ const speciesSchema = z.object({
 
 type FormData = z.infer<typeof speciesSchema>;
 
-const defaultValues: Partial<FormData> = {
-  kingdom: "Animalia",
-};
-
 export default function EditSpeciesDialog({ userId, species }: { userId: string, species: Species }) {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
 
   const form = useForm<FormData>({
     resolver: zodResolver(speciesSchema),
-    defaultValues,
     mode: "onChange",
   });
 
@@ -106,6 +101,7 @@ export default function EditSpeciesDialog({ userId, species }: { userId: string,
     router.refresh();
   };
 
+  const [comName , setComName] = useState(species.common_name)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -132,7 +128,7 @@ export default function EditSpeciesDialog({ userId, species }: { userId: string,
                   <FormItem>
                     <FormLabel>Scientific Name</FormLabel>
                     <FormControl>
-                      <Input defaultValue={species.scientific_name}/>
+                      <Input defaultValue={species.scientific_name as string}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -148,7 +144,7 @@ export default function EditSpeciesDialog({ userId, species }: { userId: string,
                     <FormItem>
                       <FormLabel>Common Name</FormLabel>
                       <FormControl>
-                      <Input defaultValue={species.common_name}/>
+                      <Input defaultValue={species.common_name as string}/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -192,7 +188,7 @@ export default function EditSpeciesDialog({ userId, species }: { userId: string,
                       {/* Using shadcn/ui form with number: https://github.com/shadcn-ui/ui/issues/421 */}
                       <Input
                         type="number"
-                        defaultValue={species.total_population}
+                        defaultValue={species.total_population as number}
                         {...field}
                         onChange={(event) => field.onChange(+event.target.value)}
                       />
@@ -209,7 +205,7 @@ export default function EditSpeciesDialog({ userId, species }: { userId: string,
                     <FormLabel>Image URL</FormLabel>
                     <FormControl>
                       <Input
-                        defaultValue={species.image}
+                        defaultValue={species.image as string}
                         {...field}
                       />
                     </FormControl>
@@ -228,7 +224,7 @@ export default function EditSpeciesDialog({ userId, species }: { userId: string,
                       <FormLabel>Description</FormLabel>
                       <FormControl>
                         <Textarea
-                          defaultValue={species.description}
+                          defaultValue={species.description as string}
                           {...rest}
                         />
                       </FormControl>
